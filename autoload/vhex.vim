@@ -25,7 +25,7 @@ let g:vhex_mode_width = get(g:, "vhex_mode_width", 4)
 let g:vhex_mode_line_width = get(g:, "vhex_mode_line_width", 4)
 let g:vhex_mode_ascii = get(g:, "vhex_mode_ascii", 1)
 
-function! LoadHex(fname)
+function! vhex#LoadHex(fname)
 pyx << _EOF_
 
 fname = vim.eval("a:fname")
@@ -39,7 +39,7 @@ vim.command("let b:hex_data = " + str(data))
 _EOF_
 endfunction
 
-function! StoreHex(fname)
+function! vhex#StoreHex(fname)
 pyx << _EOF_
 
 fname = vim.eval("a:fname")
@@ -52,7 +52,7 @@ with open(fname, 'wb') as f:
 _EOF_
 endfunction
 
-function! DisplayHex()
+function! vhex#DisplayHex()
     let pos = 0
     let ascii = 0
     let lines = []
@@ -137,7 +137,7 @@ function! DisplayHex()
     endif
 endfunction
 
-function! ParseHex()
+function! vhex#ParseHex()
 pyx << _EOF_
 
 lines = vim.current.buffer[:]
@@ -172,7 +172,7 @@ vim.command("let b:hex_data = " + str(hex_data))
 _EOF_
 endfunction
 
-function! VHexUpdateCursor()
+function! vhex#VHexUpdateCursor()
 pyx << _EOF_
 
 row,col = vim.current.window.cursor
@@ -195,6 +195,6 @@ while col < len(l) and l[col] == " ":
 vim.current.window.cursor = (row,col)
 
 _EOF_
-    call ParseHex()
-    call DisplayHex()
+    call vhex#ParseHex()
+    call vhex#DisplayHex()
 endfunction
