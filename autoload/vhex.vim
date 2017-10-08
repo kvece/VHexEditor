@@ -53,6 +53,15 @@ _EOF_
 endfunction
 
 function! vhex#DisplayHex()
+    augroup VHexResponse
+        au!
+        autocmd TextChanged <buffer=abuf> call vhex#VHexUpdateCursor()
+        autocmd CursorMovedI <buffer=abuf> call vhex#VHexUpdateCursor()
+    augroup END
+
+    let b:old_syntax = &filetype
+    set filetype=vhex
+
     let pos = 0
     let ascii = 0
     let lines = []
